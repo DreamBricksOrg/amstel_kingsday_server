@@ -1,10 +1,6 @@
 .title {
-  font-size: 32px;
-  text-align: center;
-  width: 291px;
-  margin: 0 auto;
-  font-weight: 900;
-  margin-top: 127px;
+  margin-top: 200px;
+  padding: 0 11px;
 }
 
 .btn-container {
@@ -26,8 +22,7 @@ button {
 
 @media (min-width: 768px) {
   .title {
-    width: 700px;
-    font-size: 40px;
+    width: 315px;
   }
 
   .btn-container {
@@ -41,8 +36,7 @@ button {
 
 @media (min-width: 1024px) {
   .title {
-    width: 550px;
-    font-size: 66px;
+    width: 400px;
   }
 
   .btn-container {
@@ -51,5 +45,36 @@ button {
 
   button {
     font-size: 40px;
+  }
+
+  .imgs .xxx,
+  .imgs .drink {
+    display: none;
+  }
+
+  .imgs .amster-logo {
+    position: relative;
+    bottom: 0;
+    width: 202px;
+  }
+
+  .footer {
+    display: none;
+  }
+}
+
+@media (min-width: 1440px) {
+  .title {
+    width: 800px;
+    font-size: 96px;
+    margin-top: 5%;
+  }
+
+  .btn-container {
+    margin-top: 10%;
+  }
+
+  button {
+    font-size: 64px;
   }
 }

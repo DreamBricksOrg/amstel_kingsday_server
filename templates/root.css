@@ -45,6 +45,15 @@ body {
   padding: 0 9px 24px;
 }
 
+.title {
+  font-size: 32px;
+  text-align: center;
+  width: 291px;
+  margin: 0 auto;
+  font-weight: 900;
+  margin-top: 57px;
+}
+
 .advise {
   text-align: center;
   font-size: 10px;
@@ -52,9 +61,10 @@ body {
 }
 
 .root-btn {
-  border: 2px solid #d1a53e;
+  border: 4px solid #d1a53e;
   background: none;
   color: white;
+  cursor: pointer;
 }
 
 .footer {
@@ -107,7 +117,27 @@ body {
   background: white;
 }
 
+@media (min-width: 768px) {
+  .title {
+    width: 700px;
+    font-size: 40px;
+  }
+
+  .btn-container {
+    margin-top: 20%;
+  }
+
+  button {
+    font-size: 37px;
+  }
+}
+
 @media (min-width: 1024px) {
+  .title {
+    font-size: 46px;
+    margin-top: 10%;
+  }
+
   .imgs .amster-logo {
     width: 130px;
   }
@@ -134,3 +164,30 @@ body {
     font-size: 16px;
   }
 }
+
+@media (min-width: 1440px) {
+  .title {
+    font-size: 64px;
+  }
+}
+
+@media (min-width: 1920px) {
+  .title {
+    font-size: 96px;
+  }
+}
+
+/* .imgs .xxx,
+  .imgs .drink {
+    display: none;
+  }
+
+  .imgs .amster-logo {
+    position: relative;
+    bottom: 0;
+    width: 232px;
+  }
+
+  .footer {
+    display: none;
+  } */

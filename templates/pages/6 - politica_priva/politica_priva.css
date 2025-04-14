@@ -1,12 +1,3 @@
-.title {
-  font-size: 32px;
-  text-align: center;
-  width: 112px;
-  margin: 0 auto;
-  font-weight: 900;
-  margin-top: 57px;
-}
-
 .description {
   text-align: justify;
   padding: 0 10px;
@@ -34,7 +25,6 @@ button {
 @media (min-width: 1024px) {
   .title {
     width: 100%;
-    font-size: 96px;
   }
 
   .description {

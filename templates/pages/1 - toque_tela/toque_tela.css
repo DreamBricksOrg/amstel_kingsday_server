@@ -4,15 +4,6 @@
   margin-top: 20%;
 }
 
-.title {
-  font-size: 32px;
-  text-align: center;
-  width: 291px;
-  margin: 0 auto;
-  font-weight: 900;
-  margin-top: 57px;
-}
-
 .touch {
   width: 53px;
   margin: 0 auto;
@@ -48,6 +39,6 @@
   }
 
   .title {
-    width: 50%;
+    width: 70%;
   }
 }
