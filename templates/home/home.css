@@ -1,0 +1,53 @@
+.crown {
+  width: 93px;
+  margin: 0 auto;
+  margin-top: 20%;
+}
+
+.title {
+  font-size: 32px;
+  text-align: center;
+  width: 291px;
+  margin: 0 auto;
+  font-weight: 900;
+  margin-top: 57px;
+}
+
+.touch {
+  width: 53px;
+  margin: 0 auto;
+  margin-top: 77px;
+}
+
+.separator {
+  width: 100%;
+  height: 1px;
+  background: white;
+}
+
+@media (min-width: 768px) {
+  .crown {
+    width: 195px;
+    margin-top: 10%;
+  }
+
+  .title {
+    width: 700px;
+  }
+
+  .touch {
+    width: 70px;
+    margin-top: 37px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .crown {
+    width: 195px;
+    margin-top: 5%;
+  }
+
+  .title {
+    width: 50%;
+  }
+}

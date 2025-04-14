@@ -1,0 +1,43 @@
+.title {
+  font-size: 32px;
+  text-align: center;
+  width: 112px;
+  margin: 0 auto;
+  font-weight: 900;
+  margin-top: 57px;
+}
+
+.description {
+  text-align: justify;
+  padding: 0 10px;
+}
+
+button {
+  font-size: 25px;
+  padding: 10px 20px;
+  font-weight: 600;
+  width: 150px;
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .title {
+    width: 700px;
+  }
+
+  .description {
+    width: 500px;
+    margin: 0 auto;
+  }
+}
+
+@media (min-width: 1024px) {
+  .title {
+    width: 100%;
+    font-size: 96px;
+  }
+
+  .description {
+    width: 800px;
+  }
+}

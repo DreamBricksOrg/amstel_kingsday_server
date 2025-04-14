@@ -1,0 +1,61 @@
+.title {
+  font-size: 32px;
+  text-align: center;
+  width: 300px;
+  margin: 0 auto;
+  font-weight: 900;
+  margin-top: 100px;
+}
+
+input {
+  width: 300px;
+  border: 1px solid #d1a53e;
+  background: none;
+  padding: 5px 10px;
+  margin: 0 auto;
+  font-size: 20px;
+  color: white;
+}
+
+input::placeholder {
+  color: white;
+}
+
+button {
+  font-size: 25px;
+  padding: 5px 15px;
+  font-weight: 600;
+  width: 150px;
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .title {
+    width: 700px;
+    font-size: 56px;
+  }
+
+  input {
+    width: 400px;
+    padding: 10px 20px;
+    font-size: 25px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .title {
+    width: 60%;
+  }
+
+  input {
+    width: 600px;
+    padding: 10px 20px;
+    font-size: 25px;
+  }
+
+  button {
+    font-size: 29px;
+    padding: 10px 25px;
+    width: 250px;
+  }
+}

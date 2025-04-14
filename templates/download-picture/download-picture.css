@@ -1,0 +1,46 @@
+.crown {
+  width: 93px;
+  margin: 0 auto;
+  margin-top: 20%;
+}
+
+.description {
+  font-size: 29px;
+  font-weight: 900;
+  text-align: center;
+  margin: 0 auto;
+  margin-top: 50px;
+  width: 291px;
+}
+
+button {
+  font-size: 25px;
+  padding: 15px 25px;
+  font-weight: 800;
+  width: 180px;
+  margin: 0 auto;
+  margin-top: 80px;
+}
+
+.imgs {
+  margin-top: auto;
+}
+
+@media (min-width: 768px) {
+  .crown {
+    width: 195px;
+    margin-top: 10%;
+  }
+}
+
+@media (min-width: 1024px) {
+  .crown {
+    width: 195px;
+    margin-top: 5%;
+  }
+
+  .description {
+    width: 591px;
+    font-size: 35px;
+  }
+}

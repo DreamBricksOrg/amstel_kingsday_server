@@ -1,0 +1,55 @@
+.title {
+  font-size: 32px;
+  text-align: center;
+  width: 291px;
+  margin: 0 auto;
+  font-weight: 900;
+  margin-top: 127px;
+}
+
+.btn-container {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 80px;
+}
+
+button {
+  font-size: 32px;
+  padding: 5px 15px;
+  font-weight: 600;
+}
+
+.imgs {
+  margin-top: auto;
+}
+
+@media (min-width: 768px) {
+  .title {
+    width: 700px;
+    font-size: 40px;
+  }
+
+  .btn-container {
+    margin-top: 20%;
+  }
+
+  button {
+    font-size: 37px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .title {
+    width: 550px;
+    font-size: 66px;
+  }
+
+  .btn-container {
+    margin-top: 10%;
+  }
+
+  button {
+    font-size: 40px;
+  }
+}
