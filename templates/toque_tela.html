@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="../static/css/toque_tela.css" />
   </head>
   <body>
-    <div class="wrapper">
+    <div class="wrapper" onclick="goToAgegate()">
       <div class="content">
         <img src="../static/assets/coroa.png" alt="" class="crown" />
 
@@ -42,5 +42,10 @@
       </div>
       <p class="advise">Aprecie com moderação.</p>
     </div>
+  <script>
+    function goToAgegate(){
+      window.location.href = "/agegate";
+    }
+  </script>
   </body>
 </html>

@@ -1,5 +1,7 @@
 from flask import Flask, render_template
 
+import parameters
+
 app = Flask(__name__)
 
 @app.route('/alive')
@@ -12,7 +14,7 @@ def index():
 
 @app.route('/abrircamera')
 def abrir_camera():
-    return render_template('abrir_camera.html')
+    return render_template('abrir_camera.html', api_url=parameters.API_URL)
 
 @app.route('/agedenied')
 def age_denied():
@@ -32,7 +34,7 @@ def download():
 
 @app.route('/downloadcompartilhar')
 def download_compartilhar():
-    return render_template('download_compartilhar.html')
+    return render_template('download_compartilhar.html', api_url=parameters.API_URL)
 
 @app.route('/downloadqrcode')
 def download_qrcode():
@@ -40,7 +42,7 @@ def download_qrcode():
 
 @app.route('/fotoprocessada')
 def foto_processada():
-    return render_template('foto_processada.html')
+    return render_template('foto_processada.html', api_url=parameters.API_URL)
 
 @app.route('/politicaprivacidade')
 def politica_priva():

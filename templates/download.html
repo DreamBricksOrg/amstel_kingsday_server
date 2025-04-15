@@ -20,9 +20,9 @@
 
         <p class="description">O que vossa majestade achou retrato?</p>
 
-        <button class="root-btn download">Ótimo, seguir para download</button>
+        <button class="root-btn download" onclick="goToDownload()">Ótimo, seguir para download</button>
 
-        <button class="root-btn again">Fazer outra</button>
+        <button class="root-btn again" onclick="goToCamera()">Fazer outra</button>
 
         <div class="imgs">
           <img src="../static/assets/xxx.png" alt="" class="xxx" />
@@ -44,5 +44,21 @@
       </div>
       <p class="advise">Aprecie com moderação.</p>
     </div>
+  <script>
+      function goToCamera(){
+          window.location.href = "/abrircamera";
+      }
+
+      function goToDownload() {
+          const params = new URLSearchParams(window.location.search);
+          const imgParam = params.get("img");
+
+          if (imgParam) {
+              window.location.href = `/downloadcompartilhar?img=${encodeURIComponent(imgParam)}`;
+          } else {
+              window.location.href = "/downloadcompartilhar";
+          }
+      }
+  </script>
   </body>
 </html>

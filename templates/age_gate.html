@@ -19,8 +19,8 @@
         <h2 class="title">Você tem mais de 18 anos?</h2>
 
         <div class="btn-container">
-          <button class="root-btn">Sim</button>
-          <button class="root-btn">Não</button>
+          <button class="root-btn" onclick="majorAge()">Sim</button>
+          <button class="root-btn" onclick="minorAge()">Não</button>
         </div>
 
         <div class="imgs">
@@ -43,5 +43,15 @@
       </div>
       <p class="advise">Aprecie com moderação.</p>
     </div>
+
+  <script>
+    function majorAge(){
+      window.location.href = "/termosuso";
+    }
+
+    function minorAge(){
+      window.location.href = "/agedenied";
+    }
+  </script>
   </body>
 </html>

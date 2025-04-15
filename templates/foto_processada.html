@@ -12,25 +12,29 @@
     />
     <link rel="stylesheet" href="../static/css/root.css" />
     <link rel="stylesheet" href="../static/css/foto_processada.css" />
+    <style>
+      .picture img {
+        width: 100%;
+        max-width: 400px;
+        display: block;
+        margin: 0 auto;
+      }
+    </style>
   </head>
   <body>
     <div class="wrapper">
       <div class="content">
         <img src="../static/assets/coroa.png" alt="" class="crown" />
 
-        <div class="picture"></div>
+        <div class="picture">
+          <img id="processed-image" src="" alt="Imagem processada" />
+        </div>
 
-        <button class="root-btn">Seguir</button>
+        <button class="root-btn" onclick="goToDownload()">Seguir</button>
 
         <div class="imgs">
           <img src="../static/assets/xxx.png" alt="" class="xxx" />
-
-          <img
-            src="../static/assets/logo_amstel.png"
-            alt=""
-            class="amster-logo"
-          />
-
+          <img src="../static/assets/logo_amstel.png" alt="" class="amster-logo" />
           <img src="../static/assets/drink.png" alt="" class="drink" />
         </div>
 
@@ -42,5 +46,25 @@
       </div>
       <p class="advise">Aprecie com moderação.</p>
     </div>
+
+    <script>
+      const params = new URLSearchParams(window.location.search);
+      const imgUrl = params.get('img');
+      const apiUrl = {{ api_url | tojson }};
+      if (imgUrl) {
+        document.getElementById('processed-image').src = apiUrl + imgUrl;
+      }
+
+      function goToDownload() {
+        const params = new URLSearchParams(window.location.search);
+        const imgParam = params.get("img");
+
+        if (imgParam) {
+          window.location.href = `/download?img=${encodeURIComponent(imgParam)}`;
+        } else {
+          window.location.href = "/download";
+        }
+      }
+    </script>
   </body>
 </html>
