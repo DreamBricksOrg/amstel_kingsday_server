@@ -1,6 +1,7 @@
 .description {
   text-align: justify;
   padding: 0 10px;
+  margin-top: 15px;
 }
 
 button {
@@ -9,6 +10,13 @@ button {
   font-weight: 600;
   width: 150px;
   margin: 0 auto;
+  margin-top: 30px;
+}
+
+.imgs .xxx,
+.imgs .drink,
+.imgs .amster-logo {
+  display: none;
 }
 
 @media (min-width: 768px) {
@@ -19,6 +27,12 @@ button {
   .description {
     width: 500px;
     margin: 0 auto;
+    margin-top: 10%;
+  }
+
+  button {
+    margin-top: 10%;
+    font-size: 30px;
   }
 }
 
@@ -29,5 +43,29 @@ button {
 
   .description {
     width: 800px;
+    margin-top: 5%;
+  }
+
+  button {
+    margin-top: 5%;
+    font-size: 32px;
+  }
+
+  .imgs .amster-logo {
+    bottom: 0;
+    display: initial;
+    width: 282px;
+  }
+
+  .footer {
+    display: none;
+  }
+}
+
+@media (min-width: 1440px) {
+  button {
+    font-size: 64px;
+    width: auto;
+    margin-top: 40px;
   }
 }

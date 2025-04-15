@@ -1,23 +1,35 @@
 input {
   width: 300px;
-  border: 1px solid #d1a53e;
+  border: 4px solid #d1a53e;
   background: none;
-  padding: 5px 10px;
+  padding: 15px 10px;
   margin: 0 auto;
   font-size: 20px;
   color: white;
+  margin-top: 15%;
 }
 
 input::placeholder {
   color: white;
+  font-size: 25px;
 }
 
 button {
   font-size: 25px;
-  padding: 5px 15px;
+  padding: 15px 30px;
   font-weight: 600;
-  width: 150px;
   margin: 0 auto;
+  margin-top: 15%;
+}
+
+.title {
+  margin-top: 120px;
+}
+
+.imgs .xxx,
+.imgs .drink,
+.footer {
+  display: none;
 }
 
 @media (min-width: 768px) {
@@ -35,17 +47,52 @@ button {
 @media (min-width: 1024px) {
   .title {
     width: 60%;
+    margin-top: 10%;
   }
 
   input {
     width: 600px;
     padding: 10px 20px;
     font-size: 25px;
+    margin-top: 10%;
   }
 
   button {
     font-size: 29px;
     padding: 10px 25px;
     width: 250px;
+    margin-top: 5%;
+  }
+
+  .imgs .xxx,
+  .imgs .drink {
+    display: none;
+  }
+
+  .imgs .amster-logo {
+    width: 282px;
+  }
+
+  .footer {
+    display: none;
+  }
+}
+
+@media (min-width: 1440px) {
+  .title {
+    width: 60%;
+  }
+
+  input {
+    font-size: 48px;
+    margin-top: 5%;
+  }
+
+  input::placeholder {
+    font-size: 48px;
+  }
+
+  button {
+    font-size: 48px;
   }
 }

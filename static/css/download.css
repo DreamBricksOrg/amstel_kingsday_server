@@ -6,9 +6,12 @@
   margin-top: 30px;
   width: 291px;
 }
+.title {
+  margin-top: 100px;
+}
 
 button {
-  font-size: 25px;
+  font-size: 20px;
   padding: 15px 5px;
   font-weight: 700;
   margin: 0 auto;
@@ -17,18 +20,22 @@ button {
 
 .download {
   width: 100%;
-  max-width: 383px;
+  max-width: 316px;
   margin: 0 auto;
   margin-top: 40px;
 }
 
 .again {
   padding: 15px 15px;
-  width: 170px;
 }
 
 .imgs {
   margin-top: auto;
+}
+
+.imgs .xxx,
+.imgs .drink {
+  display: none;
 }
 
 @media (min-width: 768px) {
@@ -64,11 +71,49 @@ button {
     padding: 10px 25px;
     width: 250px;
   }
+
+  .imgs .xxx,
+  .imgs .drink {
+    display: none;
+  }
+
+  .imgs .amster-logo {
+    width: 282px;
+  }
+
+  .footer {
+    display: none;
+  }
 }
 
 @media (min-width: 1440px) {
   .title {
-    margin-top: 1%;
+    margin-top: 4%;
+  }
+
+  .description {
+    font-size: 64px;
+    width: 100%;
+  }
+
+  .download {
+    width: 100%;
+    max-width: 1091px;
+    padding: 25px 40px;
+    font-size: 64px;
+  }
+
+  .again {
+    padding: 15px 15px;
+    width: 320px;
+    font-size: 48px;
+  }
+}
+
+@media (min-width: 1920px) {
+  .title {
+    margin-top: 134px;
+    font-size: 92px;
   }
 
   .description {

@@ -20,6 +20,19 @@ button {
   margin-top: auto;
 }
 
+.imgs .xxx,
+.imgs .drink {
+  display: none;
+}
+
+.imgs .amster-logo {
+  bottom: 0;
+}
+
+.footer {
+  display: none;
+}
+
 @media (min-width: 768px) {
   .title {
     width: 315px;
@@ -45,21 +58,6 @@ button {
 
   button {
     font-size: 40px;
-  }
-
-  .imgs .xxx,
-  .imgs .drink {
-    display: none;
-  }
-
-  .imgs .amster-logo {
-    position: relative;
-    bottom: 0;
-    width: 202px;
-  }
-
-  .footer {
-    display: none;
   }
 }
 

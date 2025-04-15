@@ -25,6 +25,11 @@
   margin-top: auto;
 }
 
+.imgs .xxx,
+.imgs .drink {
+  display: none;
+}
+
 @media (min-width: 768px) {
   .crown {
     width: 195px;
@@ -34,6 +39,10 @@
   .description {
     width: 551px;
   }
+
+  .qr-code {
+    margin-top: 20%;
+  }
 }
 
 @media (min-width: 1024px) {
@@ -42,8 +51,39 @@
     margin-top: 5%;
   }
 
-  .description {
-    width: 591px;
-    font-size: 35px;
+  .title {
+    margin-top: 2%;
+    width: 780px;
+  }
+
+  .imgs .xxx {
+    display: initial;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+  }
+
+  .qr-code {
+    margin-top: 5%;
+    width: 150px;
+    height: 150px;
+  }
+
+  .footer {
+    display: none;
+  }
+}
+
+@media (min-width: 1440px) {
+  .title {
+    margin-top: 2%;
+    width: 1180px;
+    font-size: 64px;
+  }
+
+  .qr-code {
+    margin-top: 2%;
+    width: 200px;
+    height: 200px;
   }
 }

@@ -1,91 +1,117 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>KINGSDAY</title>
-  <link rel="stylesheet" href="../static/css/root.css" />
-  <link rel="stylesheet" href="../static/css/abrir_camera.css" />
-  <style>
-    #cameraModal {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0, 0, 0, 0.85);
-      display: none;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      z-index: 1000;
-      color: white;
-    }
-    video, canvas {
-      border-radius: 12px;
-      max-width: 90%;
-      margin-bottom: 12px;
-    }
-    .modal-buttons {
-      display: flex;
-      gap: 1rem;
-    }
-    .loader {
-      border: 4px solid #f3f3f3;
-      border-top: 4px solid #ff6600;
-      border-radius: 50%;
-      width: 40px;
-      height: 40px;
-      animation: spin 1s linear infinite;
-      margin-top: 20px;
-      display: none;
-    }
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-  </style>
-</head>
-<body>
-  <div class="wrapper">
-    <div class="content">
-      <h2 class="title">Clique no botão para fazer o seu retrato de época para o Kings Day</h2>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>KINGSDAY</title>
+    <link rel="stylesheet" href="../static/css/root.css" />
+    <link rel="stylesheet" href="../static/css/abrir_camera.css" />
+    <style>
+      #cameraModal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.85);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        z-index: 1000;
+        color: white;
+      }
+      video,
+      canvas {
+        border-radius: 12px;
+        max-width: 90%;
+        margin-bottom: 12px;
+      }
+      .modal-buttons {
+        display: flex;
+        gap: 1rem;
+      }
+      .loader {
+        border: 4px solid #f3f3f3;
+        border-top: 4px solid #ff6600;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        animation: spin 1s linear infinite;
+        margin-top: 20px;
+        display: none;
+      }
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="content">
+        <h2 class="title">
+          Clique no botão para fazer o seu retrato de época para o Kings Day
+        </h2>
 
-      <img src="../static/assets/camera.png" alt="" class="camera" />
+        <img src="../static/assets/camera.png" alt="" class="camera" />
 
-      <button class="root-btn" onclick="abrirModal()">Abrir câmera</button>
+        <button class="root-btn" onclick="abrirModal()">Abrir câmera</button>
 
-      <div class="imgs">
-        <img src="../static/assets/xxx.png" alt="" class="xxx" />
-        <img src="../static/assets/logo_amstel.png" alt="" class="amster-logo" />
-        <img src="../static/assets/drink.png" alt="" class="drink" />
-      </div>
+        <div class="imgs">
+          <img src="../static/assets/xxx.png" alt="" class="xxx" />
+          <img
+            src="../static/assets/logo_amstel.png"
+            alt=""
+            class="amster-logo"
+          />
+          <img src="../static/assets/drink.png" alt="" class="drink" />
+        </div>
 
-      <div class="footer">
-        <span>AMS</span>
-        <div class="separator"></div>
-        <span>1870</span>
+        <div class="footer">
+          <span>AMS</span>
+          <div class="separator"></div>
+          <span>1870</span>
+        </div>
+        <p class="advise">
+          Aprecie com moderação. <img src="../static/assets/18.png" /> Venda e
+          consumo proibidos para menos de 18 anos
+        </p>
       </div>
     </div>
-    <p class="advise">Aprecie com moderação.</p>
-  </div>
 
-  <!-- Modal da câmera -->
-  <div id="cameraModal">
-    <video id="video" autoplay playsinline></video>
-    <canvas id="canvas" width="640" height="480" style="display:none;"></canvas>
+    <!-- Modal da câmera -->
+    <div id="cameraModal">
+      <video id="video" autoplay playsinline></video>
+      <canvas
+        id="canvas"
+        width="640"
+        height="480"
+        style="display: none"
+      ></canvas>
 
-    <button class="root-btn" id="captureBtn" onclick="capturarImagem()">Capturar</button>
+      <button class="root-btn" id="captureBtn" onclick="capturarImagem()">
+        Capturar
+      </button>
 
-    <div id="confirmSection" style="display:none; flex-direction: column; align-items: center;">
-      <p>A imagem ficou boa?</p>
-      <div class="modal-buttons">
-        <button onclick="enviarImagem()">✅</button>
-        <button onclick="refazerFoto()">❌</button>
+      <div
+        id="confirmSection"
+        style="display: none; flex-direction: column; align-items: center"
+      >
+        <p>A imagem ficou boa?</p>
+        <div class="modal-buttons">
+          <button onclick="enviarImagem()">✅</button>
+          <button onclick="refazerFoto()">❌</button>
+        </div>
+        <div class="loader" id="loader"></div>
       </div>
-      <div class="loader" id="loader"></div>
     </div>
-  </div>
 
-  <script>
+    <script>
       let stream = null;
       const video = document.getElementById('video');
       const canvas = document.getElementById('canvas');
@@ -147,6 +173,6 @@
               }
           }, 'image/jpeg');
       }
-  </script>
-</body>
+    </script>
+  </body>
 </html>

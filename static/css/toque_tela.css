@@ -23,7 +23,7 @@
   }
 
   .title {
-    width: 700px;
+    width: 550px;
   }
 
   .touch {
@@ -40,5 +40,29 @@
 
   .title {
     width: 70%;
+    margin-top: 5%;
+  }
+}
+
+@media (min-width: 1440px) {
+  .crown {
+    width: 195px;
+    margin-top: 5%;
+  }
+
+  .title {
+    width: 80%;
+    margin-top: 20px;
+  }
+
+  .imgs .xxx {
+    width: 65px;
+    max-height: 213px;
+  }
+}
+
+@media (min-width: 1920px) {
+  .title {
+    width: 60%;
   }
 }

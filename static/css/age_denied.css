@@ -7,6 +7,10 @@
   width: 291px;
 }
 
+.title {
+  margin-top: 140px;
+}
+
 .btn-container {
   display: flex;
   justify-content: center;
@@ -56,9 +60,7 @@ button {
   }
 
   .imgs .amster-logo {
-    position: relative;
-    bottom: 0;
-    width: 202px;
+    width: 282px;
   }
 
   .footer {
@@ -73,7 +75,7 @@ button {
   }
 
   .description {
-    font-size: 48px;
+    font-size: 29px;
   }
 
   button {
@@ -85,6 +87,7 @@ button {
   .title {
     width: 1396px;
     margin-top: 120px;
+    font-size: 96px;
   }
 
   .description {
