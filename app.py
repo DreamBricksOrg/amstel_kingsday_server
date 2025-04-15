@@ -1,5 +1,5 @@
 from flask import Flask, render_template
-
+import os
 import parameters
 
 app = Flask(__name__)
@@ -54,4 +54,8 @@ def termos_uso():
 
 
 if __name__ == '__main__':
-    app.run(debug=True, host="0.0.0.0")
+    context = ('static/fullchain.pem', 'static/privkey.pem')
+    if os.getenv('LOCAL_SERVER'):
+        app.run(debug=True, host='0.0.0.0')
+    else:
+        app.run(host='0.0.0.0', ssl_context=context)
