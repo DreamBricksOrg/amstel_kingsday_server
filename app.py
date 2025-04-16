@@ -1,8 +1,10 @@
+from dotenv import load_dotenv
 from flask import Flask, render_template
 import os
 import parameters
 
 app = Flask(__name__)
+load_dotenv()
 
 @app.route('/alive')
 def home():
@@ -54,7 +56,7 @@ def termos_uso():
 
 
 if __name__ == '__main__':
-    context = ('static/fullchain.pem', 'static/privkey.pem')
+    context = ('fullchain.pem', 'privkey.pem')
     if os.getenv('LOCAL_SERVER'):
         app.run(debug=True, host='0.0.0.0')
     else:

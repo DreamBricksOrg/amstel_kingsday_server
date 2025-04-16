@@ -55,7 +55,7 @@ button {
   }
 
   .imgs .amster-logo {
-    width: 282px;
+    width: 232px;
   }
 
   .footer {
@@ -80,7 +80,7 @@ button {
   .title {
     width: 60%;
 
-    font-size: 64px;
+    font-size: 54px;
     margin-top: 5%;
   }
 
@@ -91,6 +91,6 @@ button {
 
   button {
     font-size: 48px;
-    padding: 15px 35px;
+    padding: 10px 30px;
   }
 }

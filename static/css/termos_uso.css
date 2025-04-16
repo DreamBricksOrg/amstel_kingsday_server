@@ -64,9 +64,9 @@ button {
     display: none;
   }
 
-  .imgs .amster-logo {
-    width: 282px;
-  }
+/*  .imgs .amster-logo {*/
+/*    width: 282px;*/
+/*  }*/
 }
 
 @media (min-width: 1440px) {
