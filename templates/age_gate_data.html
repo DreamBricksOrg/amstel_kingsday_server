@@ -18,9 +18,14 @@
       <div class="content">
         <h2 class="title">Por favor, informar:</h2>
 
-        <input type="text" name="" id="" placeholder="Data de nascimento:" />
+        <input
+          type="text"
+          name=""
+          id="dataNascimento"
+          placeholder="Data de nascimento:"
+        />
 
-        <button class="root-btn">Avançar</button>
+        <button class="root-btn" id="checkBirthdate">Avançar</button>
 
         <div class="imgs">
           <img src="../static/assets/xxx.png" alt="" class="xxx" />
@@ -46,4 +51,62 @@
       </p>
     </div>
   </body>
+
+  <script>
+    const input = document.getElementById("dataNascimento");
+    const btnBirthdate = document.getElementById("checkBirthdate");
+
+    function isDataValida(dia, mes, ano) {
+      const data = new Date(ano, mes - 1, dia);
+      return (
+        data.getDate() === dia &&
+        data.getMonth() === mes - 1 &&
+        data.getFullYear() === ano
+      );
+    }
+
+    input.addEventListener("input", function (e) {
+      let value = e.target.value.replace(/\D/g, ""); // Remove tudo que não for número
+
+      if (value.length > 2) {
+        value = value.slice(0, 2) + "/" + value.slice(2);
+      }
+      if (value.length > 5) {
+        value = value.slice(0, 5) + "/" + value.slice(5, 9);
+      }
+
+      e.target.value = value;
+    });
+
+    btnBirthdate.addEventListener("click", function () {
+      const dataStr = input.value;
+      const partes = dataStr.split("/");
+
+      if (partes.length === 3) {
+        const dia = parseInt(partes[0], 10);
+        const mes = parseInt(partes[1], 10);
+        const ano = parseInt(partes[2], 10);
+
+        if (!isDataValida(dia, mes, ano)) {
+          return;
+        }
+
+        const hoje = new Date();
+        const idade = hoje.getFullYear() - ano;
+        const mesAtual = hoje.getMonth();
+        const diaAtual = hoje.getDate();
+
+        const fezAniversario =
+          mesAtual > mes - 1 || (mesAtual === mes - 1 && diaAtual >= dia);
+        const idadeFinal = fezAniversario ? idade : idade - 1;
+
+        if (idadeFinal >= 18) {
+          console.log("maior de idade");
+        } else {
+          console.log("menor de idade");
+        }
+      } else {
+      }
+    });
+  </script>
 </html>
