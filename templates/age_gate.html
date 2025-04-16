@@ -49,11 +49,19 @@
 
   <script>
     function majorAge(){
-      window.location.href = "/termosuso";
+      if (window.location.pathname.includes('/tablet')) {
+        window.location.href = "/tablet/termosuso";
+      } else {
+        window.location.href = "/termosuso";
+      }
     }
 
     function minorAge(){
-      window.location.href = "/agedenied";
+      if (window.location.pathname.includes('/tablet')) {
+        window.location.href = "/tablet/agedenied";
+      } else {
+        window.location.href = "/agedenied";
+      }
     }
   </script>
   </body>

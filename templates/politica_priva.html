@@ -59,10 +59,14 @@
         consumo proibidos para menos de 18 anos
       </p>
     </div>
-  <script>
-    function goToCamera(){
-      window.location.href = "/abrircamera"
-    }
-  </script>
+    <script>
+      function goToCamera() {
+        if (window.location.pathname.includes("/tablet")) {
+          window.location.href = "/tablet/abrircamera";
+        } else {
+          window.location.href = "/abrircamera";
+        }
+      }
+    </script>
   </body>
 </html>

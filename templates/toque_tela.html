@@ -47,7 +47,11 @@
     </div>
   <script>
     function goToAgegate(){
-      window.location.href = "/agegate";
+      if (window.location.pathname.includes('/tablet')) {
+        window.location.href = "/tablet/agegate";
+      } else {
+        window.location.href = "/agegate";
+      }
     }
   </script>
   </body>

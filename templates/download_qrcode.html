@@ -22,7 +22,9 @@
           Não esqueça de compartilhar seu retrato de época nas redes sociais!
         </h2>
 
-        <img class="qr-code" src="../static/assets/qr_code_google.png" />
+        <div id="qrcode" class="qr-code"></div>
+
+        <button class="root-btn restart" onclick="goToHome()">REINICIAR</button>
 
         <div class="imgs">
           <img src="../static/assets/xxx.png" alt="" class="xxx" />
@@ -47,5 +49,32 @@
         consumo proibidos para menos de 18 anos
       </p>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+    <script>
+      function goToHome() {
+        if (window.location.pathname.includes("/tablet")) {
+          window.location.href = "/tablet/";
+        } else {
+          window.location.href = "/";
+        }
+      }
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const params = new URLSearchParams(window.location.search);
+        const imgParam = params.get("img");
+
+        if (!imgParam) {
+          alert("Imagem não encontrada para compartilhar.");
+          return;
+        }
+
+        const apiUrl = "{{ api_url }}";
+        const imageUrl = `${apiUrl}/${encodeURIComponent(imgParam)}`;
+
+        var qrcode = new QRCode(document.getElementById("qrcode"), {
+          text: imageUrl,
+        });
+      });
+    </script>
   </body>
 </html>

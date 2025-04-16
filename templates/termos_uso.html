@@ -59,10 +59,14 @@
         consumo proibidos para menos de 18 anos
       </p>
     </div>
-  <script>
-    function goToPolicy(){
-        window.location.href = "/politicaprivacidade";
-    }
-  </script>
+    <script>
+      function goToPolicy() {
+        if (window.location.pathname.includes("/tablet")) {
+          window.location.href = "/tablet/politicaprivacidade";
+        } else {
+          window.location.href = "/politicaprivacidade";
+        }
+      }
+    </script>
   </body>
 </html>

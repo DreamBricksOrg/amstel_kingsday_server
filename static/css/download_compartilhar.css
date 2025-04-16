@@ -9,7 +9,7 @@
   font-weight: 900;
   text-align: center;
   margin: 0 auto;
-  margin-top: 50px;
+  margin-top: 30px;
   width: 291px;
 }
 
@@ -18,7 +18,13 @@ button {
   padding: 15px 25px;
   font-weight: 800;
   margin: 0 auto;
-  margin-top: 80px;
+  margin-top: 40px;
+}
+
+.restart {
+  font-size: 25px;
+  margin: 0 auto;
+  margin-top: 30px;
 }
 
 .share {
@@ -61,7 +67,7 @@ button {
 
   .description {
     width: 791px;
-    font-size: 45px;
+    font-size: 40px;
   }
 
   .imgs .drink {
@@ -79,14 +85,9 @@ button {
     display: none;
   }
 
-  button {
-    font-size: 32px;
-    margin-top: 90px;
+  .amster-logo {
+    width: 180px !important;
   }
 }
 
-@media (min-width: 1440px) {
-  button {
-    font-size: 64px;
-  }
-}
+@media (min-width: 1440px) {}

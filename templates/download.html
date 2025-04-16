@@ -20,9 +20,13 @@
 
         <p class="description">O que vossa majestade achou do retrato?</p>
 
-        <button class="root-btn download" onclick="goToDownload()">Ótimo, seguir para download</button>
+        <button class="root-btn download" onclick="goToDownload()">
+          Ótimo, seguir para download
+        </button>
 
-        <button class="root-btn again" onclick="goToCamera()">Fazer outra</button>
+        <button class="root-btn again" onclick="goToCamera()">
+          Fazer outra
+        </button>
 
         <div class="imgs">
           <img src="../static/assets/xxx.png" alt="" class="xxx" />
@@ -47,21 +51,37 @@
         consumo proibidos para menos de 18 anos
       </p>
     </div>
-  <script>
-      function goToCamera(){
+    <script>
+      function goToCamera() {
+        if (window.location.pathname.includes("/tablet")) {
+          window.location.href = "/tablet/abrircamera";
+        } else {
           window.location.href = "/abrircamera";
+        }
       }
 
       function goToDownload() {
-          const params = new URLSearchParams(window.location.search);
-          const imgParam = params.get("img");
+        const params = new URLSearchParams(window.location.search);
+        const imgParam = params.get("img");
 
+        if (window.location.pathname.includes("/tablet")) {
           if (imgParam) {
-              window.location.href = `/downloadcompartilhar?img=${encodeURIComponent(imgParam)}`;
+            window.location.href = `/tablet/downloadqrcode?img=${encodeURIComponent(
+              imgParam
+            )}`;
           } else {
-              window.location.href = "/downloadcompartilhar";
+            window.location.href = "/tablet/downloadqrcode";
           }
+        } else {
+          if (imgParam) {
+            window.location.href = `/downloadcompartilhar?img=${encodeURIComponent(
+              imgParam
+            )}`;
+          } else {
+            window.location.href = "/downloadcompartilhar";
+          }
+        }
       }
-  </script>
+    </script>
   </body>
 </html>

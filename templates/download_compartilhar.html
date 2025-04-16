@@ -24,7 +24,14 @@
 
         <button class="root-btn" onclick="downloadImage()">Download</button>
 
-        <img src="../static/assets/share-svgrepo-com.svg" alt="" class="share" onclick="shareImageFile()"/>
+        <img
+          src="../static/assets/share-svgrepo-com.svg"
+          alt=""
+          class="share"
+          onclick="shareImageFile()"
+        />
+
+        <button class="root-btn restart" onclick="goToHome()">REINICIAR</button>
 
         <div class="imgs">
           <img src="../static/assets/xxx.png" alt="" class="xxx" />
@@ -50,78 +57,86 @@
       </p>
     </div>
 
-  <script>
+    <script>
+      function goToHome() {
+        if (window.location.pathname.includes("/tablet")) {
+          window.location.href = "/tablet/";
+        } else {
+          window.location.href = "/";
+        }
+      }
+
       function downloadImage() {
-          const params = new URLSearchParams(window.location.search);
-          const imgParam = params.get("img");
+        const params = new URLSearchParams(window.location.search);
+        const imgParam = params.get("img");
 
-          if (!imgParam) {
-              alert("Imagem não encontrada!");
-              return;
-          }
+        if (!imgParam) {
+          alert("Imagem não encontrada!");
+          return;
+        }
 
-          const apiUrl = "{{ api_url }}";
-          const downloadUrl = `${apiUrl}/${encodeURIComponent(imgParam)}`;
+        const apiUrl = "{{ api_url }}";
+        const downloadUrl = `${apiUrl}/${encodeURIComponent(imgParam)}`;
 
-          fetch(downloadUrl)
-              .then(response => {
-              if (!response.ok) {
-                  throw new Error("Erro ao baixar a imagem.");
-              }
-              return response.blob();
+        fetch(downloadUrl)
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Erro ao baixar a imagem.");
+            }
+            return response.blob();
           })
-              .then(blob => {
-              const blobUrl = window.URL.createObjectURL(blob);
-              const link = document.createElement("a");
-              link.href = blobUrl;
+          .then((blob) => {
+            const blobUrl = window.URL.createObjectURL(blob);
+            const link = document.createElement("a");
+            link.href = blobUrl;
 
-              const filename = imgParam.split("/").pop();
-              link.download = filename || "imagem.png";
+            const filename = imgParam.split("/").pop();
+            link.download = filename || "imagem.png";
 
-              document.body.appendChild(link);
-              link.click();
-              document.body.removeChild(link);
-              window.URL.revokeObjectURL(blobUrl);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            window.URL.revokeObjectURL(blobUrl);
           })
-              .catch(error => {
-              console.error("Erro:", error);
-              alert("Não foi possível baixar a imagem.");
+          .catch((error) => {
+            console.error("Erro:", error);
+            alert("Não foi possível baixar a imagem.");
           });
       }
 
       async function shareImageFile() {
-          const params = new URLSearchParams(window.location.search);
-          const imgParam = params.get("img");
+        const params = new URLSearchParams(window.location.search);
+        const imgParam = params.get("img");
 
-          if (!imgParam) {
-              alert("Imagem não encontrada para compartilhar.");
-              return;
+        if (!imgParam) {
+          alert("Imagem não encontrada para compartilhar.");
+          return;
+        }
+
+        const apiUrl = "{{ api_url }}";
+        const imageUrl = `${apiUrl}/${encodeURIComponent(imgParam)}`;
+
+        try {
+          const response = await fetch(imageUrl);
+          const blob = await response.blob();
+          const filename = imgParam.split("/").pop();
+
+          const file = new File([blob], filename, { type: blob.type });
+
+          if (navigator.canShare && navigator.canShare({ files: [file] })) {
+            await navigator.share({
+              title: "Minha imagem!",
+              text: "Olha só essa imagem que fiz!",
+              files: [file],
+            });
+          } else {
+            alert("Compartilhamento de arquivos não suportado.");
           }
-
-          const apiUrl = "{{ api_url }}";
-          const imageUrl = `${apiUrl}/${encodeURIComponent(imgParam)}`;
-
-          try {
-              const response = await fetch(imageUrl);
-              const blob = await response.blob();
-              const filename = imgParam.split("/").pop();
-
-              const file = new File([blob], filename, { type: blob.type });
-
-              if (navigator.canShare && navigator.canShare({ files: [file] })) {
-                  await navigator.share({
-                      title: 'Minha imagem!',
-                      text: 'Olha só essa imagem que fiz!',
-                      files: [file]
-                  });
-              } else {
-                  alert("Compartilhamento de arquivos não suportado.");
-              }
-          } catch (err) {
-              console.error("Erro ao compartilhar:", err);
-              alert("Erro ao compartilhar a imagem.");
-          }
+        } catch (err) {
+          console.error("Erro ao compartilhar:", err);
+          alert("Erro ao compartilhar a imagem.");
+        }
       }
-  </script>
+    </script>
   </body>
 </html>
