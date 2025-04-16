@@ -125,12 +125,31 @@
       const confirmSection = document.getElementById("confirmSection");
       const loader = document.getElementById("loader");
 
+      modal.addEventListener("click", function (event) {
+        if (event.target === modal) {
+          fecharModal();
+        }
+      });
+
       async function abrirModal() {
         modal.style.display = "flex";
         stream = await navigator.mediaDevices.getUserMedia({ video: true });
         video.srcObject = stream;
         captureBtn.style.display = "block";
         confirmSection.style.display = "none";
+      }
+
+      function fecharModal() {
+        modal.style.display = "none";
+        video.srcObject = null;
+        if (stream) {
+          stream.getTracks().forEach((track) => track.stop());
+        }
+        video.style.display = "block";
+        canvas.style.display = "none";
+        captureBtn.style.display = "block";
+        confirmSection.style.display = "none";
+        loader.style.display = "none";
       }
 
       function capturarImagem() {
