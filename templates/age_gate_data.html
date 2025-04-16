@@ -101,11 +101,10 @@
         const idadeFinal = fezAniversario ? idade : idade - 1;
 
         if (idadeFinal >= 18) {
-          console.log("maior de idade");
+          window.location.href = "/termosuso";
         } else {
-          console.log("menor de idade");
+          window.location.href = "/agedenied";
         }
-      } else {
       }
     });
   </script>
