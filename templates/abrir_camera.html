@@ -24,7 +24,7 @@
       video,
       canvas {
         border-radius: 12px;
-        max-width: 90%;
+        max-width: 70%;
         margin-bottom: 12px;
       }
 
@@ -116,90 +116,102 @@
     </div>
 
     <script>
-      let stream = null;
-      const video = document.getElementById("video");
-      const canvas = document.getElementById("canvas");
-      const ctx = canvas.getContext("2d");
-      const modal = document.getElementById("cameraModal");
-      const captureBtn = document.getElementById("captureBtn");
-      const confirmSection = document.getElementById("confirmSection");
-      const loader = document.getElementById("loader");
+        let stream = null;
+        const video = document.getElementById("video");
+        const canvas = document.getElementById("canvas");
+        const ctx = canvas.getContext("2d");
+        const modal = document.getElementById("cameraModal");
+        const captureBtn = document.getElementById("captureBtn");
+        const confirmSection = document.getElementById("confirmSection");
+        const loader = document.getElementById("loader");
 
-      modal.addEventListener("click", function (event) {
-        if (event.target === modal) {
-          fecharModal();
+        modal.addEventListener("click", function (event) {
+            if (event.target === modal) {
+                fecharModal();
+            }
+        });
+
+        async function abrirModal() {
+            modal.style.display = "flex";
+            stream = await navigator.mediaDevices.getUserMedia({ video: true });
+            video.srcObject = stream;
+
+            // Esperar o vídeo carregar os metadados para pegar as dimensões reais
+            video.onloadedmetadata = () => {
+                const videoWidth = video.videoWidth;
+                const videoHeight = video.videoHeight;
+
+                // Atualizar o tamanho do canvas com a mesma proporção do vídeo
+                canvas.width = videoWidth;
+                canvas.height = videoHeight;
+
+                video.style.display = "block";
+                captureBtn.style.display = "block";
+                confirmSection.style.display = "none";
+            };
         }
-      });
 
-      async function abrirModal() {
-        modal.style.display = "flex";
-        stream = await navigator.mediaDevices.getUserMedia({ video: true });
-        video.srcObject = stream;
-        captureBtn.style.display = "block";
-        confirmSection.style.display = "none";
-      }
-
-      function fecharModal() {
-        modal.style.display = "none";
-        video.srcObject = null;
-        if (stream) {
-          stream.getTracks().forEach((track) => track.stop());
+        function fecharModal() {
+            modal.style.display = "none";
+            video.srcObject = null;
+            if (stream) {
+                stream.getTracks().forEach((track) => track.stop());
+            }
+            video.style.display = "block";
+            canvas.style.display = "none";
+            captureBtn.style.display = "block";
+            confirmSection.style.display = "none";
+            loader.style.display = "none";
         }
-        video.style.display = "block";
-        canvas.style.display = "none";
-        captureBtn.style.display = "block";
-        confirmSection.style.display = "none";
-        loader.style.display = "none";
-      }
 
-      function capturarImagem() {
-        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-        video.style.display = "none";
-        canvas.style.display = "block";
-        captureBtn.style.display = "none";
-        confirmSection.style.display = "flex";
-      }
+        function capturarImagem() {
+            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+            video.style.display = "none";
+            canvas.style.display = "block";
+            captureBtn.style.display = "none";
+            confirmSection.style.display = "flex";
+        }
 
-      function refazerFoto() {
-        video.style.display = "block";
-        canvas.style.display = "none";
-        captureBtn.style.display = "block";
-        confirmSection.style.display = "none";
-      }
+        function refazerFoto() {
+            video.style.display = "block";
+            canvas.style.display = "none";
+            captureBtn.style.display = "block";
+            confirmSection.style.display = "none";
+        }
 
-      async function enviarImagem() {
-        loader.style.display = "block";
+        async function enviarImagem() {
+            loader.style.display = "block";
 
-        canvas.toBlob(async (blob) => {
-          const formData = new FormData();
-          formData.append("image", blob, "foto.jpg");
-          const apiUrl = "{{ api_url }}";
+            canvas.toBlob(async (blob) => {
+                const formData = new FormData();
+                formData.append("image", blob, "foto.jpg");
+                const apiUrl = "{{ api_url }}";
 
-          try {
-            const response = await fetch(apiUrl + "/api/upload", {
-              method: "POST",
-              body: formData,
-            });
+                try {
+                    const response = await fetch(apiUrl + "/api/upload", {
+                        method: "POST",
+                        body: formData,
+                    });
 
-            const data = await response.json();
-            if (response.ok) {
-              const currentPath = window.location.pathname;
-              const prefix = currentPath.includes("/tablet") ? "/tablet" : "";
-              window.location.href = `${prefix}/fotoprocessada?img=${encodeURIComponent(
+                    const data = await response.json();
+                    if (response.ok) {
+                        const currentPath = window.location.pathname;
+                        const prefix = currentPath.includes("/tablet") ? "/tablet" : "";
+                        window.location.href = `${prefix}/fotoprocessada?img=${encodeURIComponent(
                 data.image_url
               )}`;
-            } else {
-              alert(data.error || "Erro ao enviar imagem");
-              refazerFoto();
-            }
-          } catch (error) {
-            alert("Erro ao conectar com o servidor.");
-            console.error(error);
-          } finally {
-            loader.style.display = "none";
-          }
-        }, "image/jpeg");
-      }
+                    } else {
+                        alert(data.error || "Erro ao enviar imagem");
+                        refazerFoto();
+                    }
+                } catch (error) {
+                    alert("Erro ao conectar com o servidor.");
+                    console.error(error);
+                } finally {
+                    loader.style.display = "none";
+                }
+            }, "image/jpeg");
+        }
     </script>
   </body>
 </html>
