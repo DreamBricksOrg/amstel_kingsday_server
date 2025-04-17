@@ -33,7 +33,7 @@
       }
       .modal-buttons {
         display: flex;
-        gap: 1rem;
+        gap: 2rem;
       }
       .loader {
         border: 4px solid #f3f3f3;
@@ -108,8 +108,12 @@
       >
         <p>A imagem ficou boa?</p>
         <div class="modal-buttons">
-          <button onclick="enviarImagem()">✅</button>
-          <button onclick="refazerFoto()">❌</button>
+          <button onclick="enviarImagem()">
+            <img src="/static/assets/check-svgrepo-com.svg" alt="" />
+          </button>
+          <button onclick="refazerFoto()">
+            <img src="/static/assets/block-2-svgrepo-com.svg" alt="" />
+          </button>
         </div>
         <div class="loader" id="loader"></div>
       </div>
