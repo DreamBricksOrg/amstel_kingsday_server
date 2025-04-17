@@ -1,7 +1,7 @@
 .crown {
   width: 93px;
   margin: 0 auto;
-  margin-top: 20%;
+  margin-top: 10%;
 }
 
 .description {
@@ -9,22 +9,22 @@
   font-weight: 900;
   text-align: center;
   margin: 0 auto;
-  margin-top: 30px;
+  margin-top: 10px;
   width: 291px;
 }
 
 button {
-  font-size: 25px;
-  padding: 15px 25px;
+  font-size: 18px;
+  padding: 10px 25px;
   font-weight: 800;
   margin: 0 auto;
-  margin-top: 40px;
+  margin-top: 15px;
 }
 
 .restart {
-  font-size: 25px;
+  font-size: 18px;
   margin: 0 auto;
-  margin-top: 30px;
+  margin-top: 15px;
 }
 
 .share {
@@ -41,6 +41,37 @@ button {
 .imgs .xxx,
 .imgs .drink {
   display: none;
+}
+
+@media (min-height: 700px) {
+  .crown {
+    width: 93px;
+    margin: 0 auto;
+    margin-top: 15%;
+  }
+
+  .description {
+    font-size: 29px;
+    font-weight: 900;
+    text-align: center;
+    margin: 0 auto;
+    margin-top: 30px;
+    width: 291px;
+  }
+
+  button {
+    font-size: 25px;
+    padding: 15px 25px;
+    font-weight: 800;
+    margin: 0 auto;
+    margin-top: 40px;
+  }
+
+  .restart {
+    font-size: 25px;
+    margin: 0 auto;
+    margin-top: 30px;
+  }
 }
 
 @media (min-width: 768px) {
@@ -90,4 +121,5 @@ button {
   }
 }
 
-@media (min-width: 1440px) {}
+@media (min-width: 1440px) {
+}
