@@ -1,6 +1,7 @@
 .description {
   text-align: justify;
   padding: 0 10px;
+  overflow: auto;
 }
 
 button {
