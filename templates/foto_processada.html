@@ -94,46 +94,50 @@
 
     <script>
       const params = new URLSearchParams(window.location.search);
-      const imgUrl = params.get('img');
-      const apiUrl = {{ api_url | tojson }};
+      const imgUrl = params.get("img");
+      const apiUrl = "{{ api_url }}";
 
-      const processedImage = document.getElementById('processed-image');
-      const overlay = document.getElementById('image-overlay');
-      const zoomedImg = document.getElementById('zoomed-img');
+      const processedImage = document.getElementById("processed-image");
+      const overlay = document.getElementById("image-overlay");
+      const zoomedImg = document.getElementById("zoomed-img");
 
       if (imgUrl) {
-          const fullUrl = apiUrl + imgUrl;
-          document.getElementById('processed-image').src = fullUrl;
-          zoomedImg.src = fullUrl;
+        const fullUrl = apiUrl + imgUrl;
+        document.getElementById("processed-image").src = fullUrl;
+        zoomedImg.src = fullUrl;
       }
 
       function goToDownload() {
-          const params = new URLSearchParams(window.location.search);
-          const imgParam = params.get("img");
+        const params = new URLSearchParams(window.location.search);
+        const imgParam = params.get("img");
 
-          if (imgParam) {
-              if (window.location.pathname.includes('/tablet')) {
-                  window.location.href = `/tablet/download?img=${encodeURIComponent(imgParam)}`;
-              } else {
-                  window.location.href = `/download?img=${encodeURIComponent(imgParam)}`;
-              }
+        if (imgParam) {
+          if (window.location.pathname.includes("/tablet")) {
+            window.location.href = `/tablet/download?img=${encodeURIComponent(
+              imgParam
+            )}`;
           } else {
-              if (window.location.pathname.includes('/tablet')) {
-                  window.location.href = "/tablet/download";
-              } else {
-                  window.location.href = "/download";
-              }
+            window.location.href = `/download?img=${encodeURIComponent(
+              imgParam
+            )}`;
+          }
+        } else {
+          if (window.location.pathname.includes("/tablet")) {
+            window.location.href = "/tablet/download";
+          } else {
+            window.location.href = "/download";
           }
         }
+      }
 
-      processedImage.addEventListener('click', (event) => {
-          event.stopPropagation();
-          zoomedImg.src = processedImage.src;
-          overlay.classList.add('visible');
+      processedImage.addEventListener("click", (event) => {
+        event.stopPropagation();
+        zoomedImg.src = processedImage.src;
+        overlay.classList.add("visible");
       });
 
-      overlay.addEventListener('click', () => {
-          overlay.classList.remove('visible');
+      overlay.addEventListener("click", () => {
+        overlay.classList.remove("visible");
       });
     </script>
   </body>

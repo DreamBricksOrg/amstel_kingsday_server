@@ -2,9 +2,18 @@ from dotenv import load_dotenv
 from flask import Flask, render_template
 import os
 import parameters
+import threading
+
+from log_sender import process_csv_and_send_logs, csv_filename, backup_filename, init_csv, save_csv_additional
 
 app = Flask(__name__)
 load_dotenv()
+
+init_csv(csv_filename)
+init_csv(backup_filename)
+
+threading.Thread(target=process_csv_and_send_logs, args=(csv_filename, backup_filename), daemon=True).start()
+
 
 @app.route('/alive')
 def home():
@@ -28,10 +37,12 @@ def tablet_abrir_camera():
 
 @app.route('/agedenied')
 def age_denied():
+    save_csv_additional("MENOR_IDADE", "WEB")
     return render_template('age_denied.html')
 
 @app.route('/tablet/agedenied')
 def tablet_age_denied():
+    save_csv_additional("MENOR_IDADE", "TABLET")
     return render_template('age_denied.html')
 
 @app.route('/agegate')
@@ -60,7 +71,7 @@ def tablet_download():
 
 @app.route('/downloadcompartilhar')
 def download_compartilhar():
-    return render_template('download_compartilhar.html', api_url=parameters.API_URL)
+    return render_template('download_compartilhar.html', api_url=parameters.API_URL, api_log=parameters.LOG_API, api_log_project=parameters.LOG_PROJECT_ID)
 
 @app.route('/tablet/downloadcompartilhar')
 def tablet_download_compartilhar():
@@ -76,10 +87,12 @@ def tablet_download_qrcode():
 
 @app.route('/fotoprocessada')
 def foto_processada():
+    save_csv_additional("FOTO_GERADA", "WEB")
     return render_template('foto_processada.html', api_url=parameters.API_URL)
 
 @app.route('/tablet/fotoprocessada')
 def tablet_foto_processada():
+    save_csv_additional("FOTO_GERADA", "TABLET")
     return render_template('foto_processada.html', api_url=parameters.API_URL)
 
 @app.route('/politicaprivacidade')
@@ -97,6 +110,11 @@ def termos_uso():
 @app.route('/tablet/termosuso')
 def tablet_termos_uso():
     return render_template('termos_uso.html')
+
+@app.route('/tablet/qrcodescanned')
+def qrcode_scanned():
+    save_csv_additional("ESCANEOU", "TABLET")
+    return render_template('qrcode_scanned.html',api_url=parameters.API_URL, api_log=parameters.LOG_API, api_log_project=parameters.LOG_PROJECT_ID)
 
 if __name__ == '__main__':
     context = ('fullchain.pem', 'privkey.pem')

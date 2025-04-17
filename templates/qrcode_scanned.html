@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>KINGSDAY</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link
+            href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+            rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../static/css/root.css"/>
+    <link rel="stylesheet" href="../static/css/qrcode_scanned.css"/>
+    <style>
+        .picture img {
+            width: 100%;
+            max-width: 400px;
+            display: block;
+            margin: 0 auto;
+        }
+
+        #image-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        #image-overlay.visible {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        #image-overlay img {
+            max-width: 60%;
+            max-height: 60%;
+            transform: scale(1);
+            transition: transform 0.3s ease;
+            border: 2px solid #d1a53e;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.6);
+        }
+
+        #image-overlay.visible img {
+            transform: scale(1.5);
+        }
+    </style>
+</head>
+<body>
+<div class="wrapper">
+    <div id="image-overlay">
+        <img id="zoomed-img" src="" alt="Zoom"/>
+    </div>
+    <div class="content">
+        <img src="../static/assets/coroa.png" alt="" class="crown"/>
+
+        <!--            src="../static/assets/image_test.png"-->
+        <div class="picture">
+            <img id="processed-image" src="" alt="Imagem processada"/>
+        </div>
+
+        <div class="d-flex">
+            <button class="root-btn" onclick="downloadImage()">BAIXAR</button>
+
+            <img
+                    src="../static/assets/share-svgrepo-com.svg"
+                    alt=""
+                    class="share"
+                    onclick="shareImageFile()"
+            />
+        </div>
+
+        <div class="imgs">
+            <img src="../static/assets/xxx.png" alt="" class="xxx"/>
+            <img
+                    src="../static/assets/logo_amstel.png"
+                    alt=""
+                    class="amster-logo"
+            />
+            <img src="../static/assets/drink.png" alt="" class="drink"/>
+        </div>
+
+        <div class="footer">
+            <span>AMS</span>
+            <div class="separator"></div>
+            <span>1870</span>
+        </div>
+    </div>
+    <p class="advise">
+        Aprecie com moderação. <img src="../static/assets/18.png"/> Venda e
+        consumo proibidos para menos de 18 anos
+    </p>
+</div>
+
+<script>
+
+    const params = new URLSearchParams(window.location.search);
+    const imgUrl = params.get("img");
+    const apiUrl = "{{ api_url }}";
+
+    const processedImage = document.getElementById("processed-image");
+    const overlay = document.getElementById("image-overlay");
+    const zoomedImg = document.getElementById("zoomed-img");
+
+    if (imgUrl) {
+        const fullUrl = apiUrl + imgUrl;
+        document.getElementById("processed-image").src = fullUrl;
+        zoomedImg.src = fullUrl;
+    }
+
+    processedImage.addEventListener("click", (event) => {
+        event.stopPropagation();
+        zoomedImg.src = processedImage.src;
+        overlay.classList.add("visible");
+    });
+
+    overlay.addEventListener("click", () => {
+        overlay.classList.remove("visible");
+    });
+
+    function downloadImage() {
+        const params = new URLSearchParams(window.location.search);
+        const imgParam = params.get("img");
+
+        if (!imgParam) {
+            alert("Imagem não encontrada!");
+            return;
+        }
+
+        const apiUrl = "{{ api_url }}";
+        const downloadUrl = `${apiUrl}/${encodeURIComponent(imgParam)}`;
+
+        fetch(downloadUrl)
+            .then((response) => {
+            if (!response.ok) {
+                throw new Error("Erro ao baixar a imagem.");
+            }
+            return response.blob();
+        })
+            .then((blob) => {
+            const blobUrl = window.URL.createObjectURL(blob);
+            const link = document.createElement("a");
+            link.href = blobUrl;
+
+            const filename = imgParam.split("/").pop();
+            link.download = filename || "imagem.png";
+
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            window.URL.revokeObjectURL(blobUrl);
+            sendLog("BAIXOU", "TABLET");
+        })
+            .catch((error) => {
+            console.error("Erro:", error);
+            alert("Não foi possível baixar a imagem.");
+        });
+    }
+
+    async function shareImageFile() {
+        const params = new URLSearchParams(window.location.search);
+        const imgParam = params.get("img");
+
+        if (!imgParam) {
+            alert("Imagem não encontrada para compartilhar.");
+            return;
+        }
+
+        const apiUrl = "{{ api_url }}";
+        const imageUrl = `${apiUrl}/${encodeURIComponent(imgParam)}`;
+
+        try {
+            const response = await fetch(imageUrl);
+            const blob = await response.blob();
+            const filename = imgParam.split("/").pop();
+
+            const file = new File([blob], filename, { type: blob.type });
+
+            if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                await navigator.share({
+                    title: "Sou da realeza!",
+                    text: "Olha só essa imagem que fiz!",
+                    files: [file],
+                });
+                await sendLog("COMPARTILHOU", "TABLET");
+            } else {
+                alert("Compartilhamento de arquivos não suportado.");
+            }
+        } catch (err) {
+            console.error("Erro ao compartilhar:", err);
+            alert("Erro ao compartilhar a imagem.");
+        }
+    }
+
+    async function sendLog(status, additional) {
+        const apiLog = "{{api_log}}";
+        const apiLogProject = "{{api_log_project}}";
+        const url = apiLog + "/datalog/upload";
+
+        const timePlayed = new Date().toISOString().split(".")[0] + "Z";
+        const project = apiLogProject;
+        const data = new URLSearchParams({
+            status,
+            project,
+            additional,
+            timePlayed,
+        });
+
+        const timestamp = new Date().toISOString();
+
+        try {
+            const response = await fetch(url, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                },
+                body: data,
+            });
+
+            if (response.ok) {
+                console.log(`${timestamp} - Requisição bem-sucedida`);
+                return true;
+            } else {
+                console.log(`${timestamp} - Falha na requisição:`, response.status);
+                return false;
+            }
+        } catch (error) {
+            console.log(response);
+
+            return false;
+        }
+    }
+</script>
+</body>
+</html>

@@ -68,8 +68,8 @@
           return;
         }
 
-        const apiUrl = "{{ api_url }}";
-        const imageUrl = `${apiUrl}/${encodeURIComponent(imgParam)}`;
+        const frontUrl = "https://kingsdayapp.ddns.net";
+        const imageUrl = `${frontUrl}/tablet/qrcodescanned?img=${encodeURIComponent(imgParam)}`;
 
         var qrcode = new QRCode(document.getElementById("qrcode"), {
           text: imageUrl,

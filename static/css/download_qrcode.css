@@ -53,7 +53,7 @@
   }
 
   .qr-code {
-    margin-top: 20%;
+    margin-top: 15%;
   }
 }
 
@@ -87,10 +87,15 @@
 }
 
 @media (min-width: 1440px) {
+  .crown {
+    width: 195px;
+    margin-top: 2%;
+  }
+
   .title {
     margin-top: 2%;
     width: 1180px;
-    font-size: 64px;
+    font-size: 48px;
   }
 
   .qr-code {
