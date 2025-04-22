@@ -54,7 +54,11 @@
 
   <script>
     function goToHome(){
-      window.location.href = "/";
+      if (window.location.pathname.includes('/tablet')) {
+        window.location.href = "/tablet";
+      } else {
+        window.location.href = "/";
+      }
     }
   </script>
   </body>

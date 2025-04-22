@@ -186,6 +186,9 @@
         async function enviarImagem() {
             loader.style.display = "block";
 
+            const confirmButtons = confirmSection.querySelectorAll("button");
+            confirmButtons.forEach(btn => btn.disabled = true);
+
             canvas.toBlob(async (blob) => {
                 const formData = new FormData();
                 formData.append("image", blob, "foto.jpg");
@@ -201,9 +204,7 @@
                     if (response.ok) {
                         const currentPath = window.location.pathname;
                         const prefix = currentPath.includes("/tablet") ? "/tablet" : "";
-                        window.location.href = `${prefix}/fotoprocessada?img=${encodeURIComponent(
-                data.image_url
-              )}`;
+                        window.location.href = `${prefix}/fotoprocessada?img=${encodeURIComponent(data.image_url)}`;
                     } else {
                         alert(data.error || "Erro ao enviar imagem");
                         refazerFoto();
@@ -213,6 +214,7 @@
                     console.error(error);
                 } finally {
                     loader.style.display = "none";
+                    confirmButtons.forEach(btn => btn.disabled = false);
                 }
             }, "image/jpeg");
         }
