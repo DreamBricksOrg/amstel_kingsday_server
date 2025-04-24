@@ -43,6 +43,14 @@ body {
   flex-direction: column;
   justify-content: space-between;
   padding: 0 9px 24px;
+  overflow: auto;
+
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.content::-webkit-scrollbar {
+  display: none;
 }
 
 .title {
@@ -106,8 +114,7 @@ body {
 .imgs .amster-logo {
   width: 100px;
   margin: 0 auto;
-  position: absolute;
-  margin: 0 auto;
+  margin-top: 20px;
   right: 0;
   left: 0;
   bottom: -10px;

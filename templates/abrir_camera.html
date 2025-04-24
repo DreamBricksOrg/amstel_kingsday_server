@@ -23,8 +23,8 @@
       }
       video,
       canvas {
-        border-radius: 12px;
         max-width: 70%;
+        border-radius: 12px;
         margin-bottom: 12px;
       }
 
@@ -32,6 +32,26 @@
         max-width: 70%;
         transform: scaleX(-1);
       }
+
+      #cameraModal {
+        overflow: hidden;
+      }
+
+      #previewWrapper {
+        max-height: 70vh; /* espaço reservado para botões e textos */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+
+      video, canvas {
+        max-width: 90vw;
+        max-height: 100%;
+        border-radius: 12px;
+        object-fit: contain;
+      }
+
       .modal-buttons {
         display: flex;
         gap: 2rem;
@@ -54,6 +74,19 @@
           transform: rotate(360deg);
         }
       }
+
+      .loader.fullscreen {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.85);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 2000;
+      }
     </style>
   </head>
   <body>
@@ -64,6 +97,17 @@
         </h2>
 
         <img src="../static/assets/camera.png" alt="" class="camera" />
+
+        <input
+                type="file"
+                id="uploadInput"
+                accept="image/*"
+                style="display: none"
+                onchange="carregarImagemGaleria(event)"
+        />
+        <button class="root-btn" onclick="document.getElementById('uploadInput').click()">
+          Enviar foto
+        </button>
 
         <button class="root-btn" onclick="abrirModal()">Abrir câmera</button>
 
@@ -91,13 +135,10 @@
 
     <!-- Modal da câmera -->
     <div id="cameraModal">
-      <video id="video" autoplay playsinline></video>
-      <canvas
-        id="canvas"
-        width="640"
-        height="480"
-        style="display: none"
-      ></canvas>
+      <div id="previewWrapper" style="display: flex; flex-direction: column; align-items: center; max-height: 70vh;">
+        <video id="video" autoplay playsinline></video>
+        <canvas id="canvas" style="display: none;"></canvas>
+      </div>
 
       <button class="root-btn" id="captureBtn" onclick="capturarImagem()">
         Capturar
@@ -182,10 +223,71 @@
         }
 
         function refazerFoto() {
-            video.style.display = "block";
-            canvas.style.display = "none";
-            captureBtn.style.display = "block";
-            confirmSection.style.display = "none";
+          modal.style.display = "none";
+
+          if (stream) {
+            stream.getTracks().forEach((track) => track.stop());
+            video.srcObject = null;
+            stream = null;
+          }
+
+          video.style.display = "block";
+          canvas.style.display = "none";
+          captureBtn.style.display = "block";
+          confirmSection.style.display = "none";
+          loader.style.display = "none";
+          loader.classList.remove("fullscreen");
+
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+
+        function carregarImagemGaleria(event) {
+          const file = event.target.files[0];
+          if (!file) return;
+
+          loader.classList.add("fullscreen");
+          loader.style.display = "flex";
+
+          const reader = new FileReader();
+
+          reader.onload = function (e) {
+            const img = new Image();
+            img.onload = function () {
+              modal.style.display = "flex";
+
+              if (stream) {
+                stream.getTracks().forEach((track) => track.stop());
+                video.srcObject = null;
+              }
+
+              const maxWidth = 640;
+              const maxHeight = window.innerHeight * 0.7; // 70% da tela
+
+              const widthRatio = maxWidth / img.width;
+              const heightRatio = maxHeight / img.height;
+              const scale = Math.min(1, widthRatio, heightRatio);
+
+              const scaledWidth = img.width * scale;
+              const scaledHeight = img.height * scale;
+
+              canvas.width = scaledWidth;
+              canvas.height = scaledHeight;
+
+              ctx.clearRect(0, 0, canvas.width, canvas.height);
+              ctx.drawImage(img, 0, 0, scaledWidth, scaledHeight);
+
+              video.style.display = "none";
+              canvas.style.display = "block";
+              captureBtn.style.display = "none";
+              confirmSection.style.display = "flex";
+
+              loader.style.display = "none";
+              loader.classList.remove("fullscreen");
+            };
+            img.src = e.target.result;
+          };
+
+          reader.readAsDataURL(file);
         }
 
         async function enviarImagem() {

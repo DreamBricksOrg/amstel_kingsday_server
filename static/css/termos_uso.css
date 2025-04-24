@@ -2,6 +2,13 @@
   text-align: justify;
   padding: 0 10px;
   overflow: auto;
+
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.description::-webkit-scrollbar {
+  display: none;
 }
 
 button {
