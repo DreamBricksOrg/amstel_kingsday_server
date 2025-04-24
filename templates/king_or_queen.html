@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>KINGSDAY</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../static/css/root.css" />
+    <link rel="stylesheet" href="../static/css/age_gate.css" />
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="content">
+        <h2 class="title">Você quer ser rei ou rainha?</h2>
+
+        <div class="btn-container">
+          <button class="root-btn" onclick="king()">REI</button>
+          <button class="root-btn" onclick="queen()">RAINHA</button>
+        </div>
+
+        <div class="imgs">
+          <img src="../static/assets/xxx.png" alt="" class="xxx" />
+
+          <img
+            src="../static/assets/logo_amstel.png"
+            alt=""
+            class="amster-logo"
+          />
+
+          <img src="../static/assets/drink.png" alt="" class="drink" />
+        </div>
+
+        <div class="footer">
+          <span>AMS</span>
+          <div class="separator"></div>
+          <span>1870</span>
+        </div>
+      </div>
+      <p class="advise">
+        Aprecie com moderação. <img src="../static/assets/18.png" /> Venda e
+        consumo proibidos para menos de 18 anos
+      </p>
+    </div>
+
+  <script>
+      function king() {
+          localStorage.setItem("kingorqueen", "king");
+          if (window.location.pathname.includes('/tablet')) {
+              window.location.href = "/tablet/abrircamera";
+          } else {
+              window.location.href = "/abrircamera";
+          }
+      }
+
+      function queen() {
+          localStorage.setItem("kingorqueen", "queen");
+          if (window.location.pathname.includes('/tablet')) {
+              window.location.href = "/tablet/abrircamera";
+          } else {
+              window.location.href = "/abrircamera";
+          }
+      }
+  </script>
+  </body>
+</html>

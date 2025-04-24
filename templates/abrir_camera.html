@@ -163,6 +163,7 @@
 
     <script>
         let stream = null;
+        let isSending = false;
         const video = document.getElementById("video");
         const canvas = document.getElementById("canvas");
         const ctx = canvas.getContext("2d");
@@ -172,9 +173,9 @@
         const loader = document.getElementById("loader");
 
         modal.addEventListener("click", function (event) {
-            if (event.target === modal) {
-                fecharModal();
-            }
+          if (event.target === modal && !isSending) {
+            fecharModal();
+          }
         });
 
         async function abrirModal() {
@@ -261,7 +262,7 @@
               }
 
               const maxWidth = 640;
-              const maxHeight = window.innerHeight * 0.7; // 70% da tela
+              const maxHeight = window.innerHeight * 0.7;
 
               const widthRatio = maxWidth / img.width;
               const heightRatio = maxHeight / img.height;
@@ -291,7 +292,12 @@
         }
 
         async function enviarImagem() {
+            isSending = true;
             loader.style.display = "block";
+            let choice = localStorage.getItem("kingorqueen");
+            if (choice == null){
+              choice = "queen";
+            }
 
             const confirmButtons = confirmSection.querySelectorAll("button");
             confirmButtons.forEach(btn => btn.disabled = true);
@@ -299,6 +305,7 @@
             canvas.toBlob(async (blob) => {
                 const formData = new FormData();
                 formData.append("image", blob, "foto.jpg");
+                formData.append("choice", choice)
                 const apiUrl = "{{ api_url }}";
 
                 try {
@@ -322,6 +329,7 @@
                 } finally {
                     loader.style.display = "none";
                     confirmButtons.forEach(btn => btn.disabled = false);
+                    isSending = false;
                 }
             }, "image/jpeg");
         }

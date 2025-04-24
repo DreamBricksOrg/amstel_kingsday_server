@@ -35,6 +35,14 @@ def abrir_camera():
 def tablet_abrir_camera():
     return render_template('abrir_camera.html', api_url=parameters.API_URL)
 
+@app.route('/kingorqueen')
+def king_or_queen():
+    return render_template('king_or_queen.html')
+
+@app.route('/tablet/kingorqueen')
+def tablet_king_or_queen():
+    return render_template('king_or_queen.html')
+
 @app.route('/agedenied')
 def age_denied():
     save_csv_additional("MENOR_IDADE", "WEB")
