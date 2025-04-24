@@ -30,6 +30,7 @@
 
       video {
         max-width: 70%;
+        transform: scaleX(-1);
       }
       .modal-buttons {
         display: flex;
@@ -169,7 +170,11 @@
         }
 
         function capturarImagem() {
-            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+            ctx.save();
+            ctx.scale(-1, 1);
+            ctx.drawImage(video, -canvas.width, 0, canvas.width, canvas.height);
+            ctx.restore();
+
             video.style.display = "none";
             canvas.style.display = "block";
             captureBtn.style.display = "none";
